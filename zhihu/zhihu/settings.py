@@ -54,7 +54,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'zhihu.middlewares.RandomUserAgentMiddleware': 543,
+    'zhihu.middlewares.RandomUserAgentMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -66,7 +66,8 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'zhihu.pipelines.MongoPipeline': 300,
+    'zhihu.pipelines.MongoPipeline': 300,
+    'scrapy_redis.pipelines.RedisPipeline': 301
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,5 +92,11 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # 连接AWS_S2的MongoDB
-MONGO_URI = 'mongodb://'
+MONGO_URI = 'mongodb://root:zsprout@127.0.0.1:27017'
 MONGO_DB = 'zhihu'
+
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+REDIS_URL = 'redis://user:pass@127.0.0.1:6379'
