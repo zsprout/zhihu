@@ -6,7 +6,7 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-from random import choice
+import random
 
 class RandomUserAgentMiddleware(object):
     def __init__(self):
@@ -32,7 +32,7 @@ class RandomUserAgentMiddleware(object):
         ]
 
     def process_request(self, request, spider):
-        request.headers["User-Agent"] = choice(self.user_agents)
+        request.headers["User-Agent"] = random.choice(self.user_agents)
 
 
 class ZhihuSpiderMiddleware(object):

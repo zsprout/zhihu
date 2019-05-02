@@ -17,7 +17,7 @@ class MongoPipeline(object):
     def from_crawler(cls, crawler):
         return cls(
             mongo_uri=crawler.settings.get('MONGO_URI'),
-            mongo_db=crawler.settings.get('MONGO_DATABASE')
+            mongo_db=crawler.settings.get('MONGO_DB')
         )
 
     def open_spider(self, spider):
@@ -25,9 +25,8 @@ class MongoPipeline(object):
         self.db = self.client[self.mongo_db]
 
     def process_item(self, item, spider):
-        print(item)
-        # name = item.collection
-        # self.db[name].update({'url_token': item['url_token']}, {'$set': dict(item)}, True)
+        name = item.collection
+        self.db[name].update({'url_token': item['url_token']}, {'$set': dict(item)}, True)
         return item
 
     def close_spider(self, spider):
